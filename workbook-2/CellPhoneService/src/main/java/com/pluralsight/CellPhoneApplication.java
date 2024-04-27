@@ -4,18 +4,27 @@ import java.util.Scanner;
 public class CellPhoneApplication {
 
     public static void main(String[] args) {
-        Scanner scanner = new scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         CellPhone cp1 = new CellPhone();
         System.out.print("What is the serial number?: ");
-        long sn = scanner.nextLong();
+        cp1.setSerialNumber(scanner.nextLong());
+        scanner.nextLine();
         System.out.print("What is the model of the phone?: ");
-        String model = scanner.nextLine();
+        cp1.setModel(scanner.nextLine());
         System.out.print("Who is the phone carrier?: ");
-        String carrier = scanner.nextLine();
+        cp1.setCarrier(scanner.nextLine());
         System.out.print("What is the phone number?: ");
-        String phoneNumber = scanner.nextLine();
+        cp1.setPhoneNumber(scanner.nextLine());
         System.out.print("Who is the owner of the phone?: ");
-        String owner = scanner.nextLine();
-
+        cp1.setOwner(scanner.nextLine());
+        System.out.println(cp1.getSerialNumber());
+        System.out.println(cp1.getModel());
+        System.out.println(cp1.getCarrier());
+        System.out.println(cp1.getPhoneNumber());
+        System.out.println(cp1.getOwner());
     }
+
+
+
+
 }
