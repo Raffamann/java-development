@@ -7,6 +7,7 @@ public class CellPhoneApplication {
     public static void main(String[] args) {
         CellPhone cp1 = new CellPhone();
         CellPhone cp2 = new CellPhone();
+        CellPhone cp3 = new CellPhone(1629302," 2 "," sage "," 123456789 ", " Rafa ");
         values(cp1);
         display(cp1);
         cp1.dial("682_907_634");
