@@ -20,7 +20,7 @@ public class AccountingLedger {
     static ArrayList<String> entries = new ArrayList<>();
 
     public static void main(String[] args) {
-
+        homeScreen();
     }
 
     public static void homeScreen() {
@@ -173,6 +173,7 @@ public class AccountingLedger {
             throw new RuntimeException(e);
         }
     }
+
     public static void sortArray(ArrayList<String> product) {
         Collections.reverse(product);
         for (String item : product) {
@@ -180,6 +181,7 @@ public class AccountingLedger {
         }
         product.clear();
     }
+
     public static void viewReports() {
         System.out.println("1- Month To Date");
         System.out.println(" 2- Previous Month");
@@ -194,6 +196,188 @@ public class AccountingLedger {
         if (userChoice == 1) {
             monthToDate();
             viewReports();
-        } else if (userChoice)
+        } else if (userChoice == 2) {
+            previousMonth();
+            viewReports();
+        } else if (userChoice == 3) {
+            yearToDate();
+            viewReports();
+        } else if (userChoice == 4) {
+            previousYear();
+            viewReports();
+        } else if (userChoice == 5) {
+            searchByVendor();
+            viewReports();
+        } else if (userChoice == 6) {
+            ledgerMenu();
+        } else {
+            System.out.println("Oops! Not a valid input,try again");
+            viewReports();
+        }
+    }
+    public static void monthToDate() {
+        String input;
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] tokens = input.split("\\|");
+                String[] date = tokens[0].split("-");
+                if (Integer.parseInt(date[1]) == currentMonth && Integer.parseInt(date[0]) == currentYear) {
+                    entries.add(input);
+                }
+            }
+            sortArray(entries);
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void previousMonth() {
+        String input;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] tokens = input.split("\\|");
+                String[] date = tokens[0].split("-");
+                if (Integer.parseInt(date[0]) == currentYear) {
+                    entries.add(input);
+                }
+            }
+            sortArray(entries);
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        }
+    public static void yearToDate() {
+        String input;
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] tokens = input.split("\\|");
+                String[] date = tokens[0].split("-");
+                if (Integer.parseInt(date[1]) == currentMonth && Integer.parseInt(date[0]) == currentYear) {
+                    entries.add(input);
+                }
+            }
+            sortArray(entries);
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void previousYear() {
+        String input;
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] tokens = input.split("\\|");
+                String[] date = tokens[0].split("-");
+                if (Integer.parseInt(date[0]) == currentYear-1) {
+                    entries.add(input);
+                }
+            }
+            sortArray(entries);
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void searchByVendor() {
+        // ask user for name the vendor
+        System.out.println("Please enter name of the vendor: ");
+        String vendor = scanner.nextLine();
+        String input;
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] tokens = input.split("\\|");
+                if (tokens[3].equalsIgnoreCase(vendor)) {
+                    entries.add(input);
+                }
+            }
+            sortArray(entries);
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
+package com.pluralsight;
+
+public class transactions {
+    private String date;
+    private String description;
+    private String vendor;
+    private String time;
+    private float amount;
+
+
+    public transactions(String date, String description, String vendor, String time, Float amount) {
+        this.date = date;
+        this.description = description;
+        this.vendor = vendor;
+        this.time = time;
+        this.amount = amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "transactions{" +
+                "date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                "vendor='" + vendor + '\'' +
+                ", time='" + time + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }
